@@ -5,10 +5,8 @@ using System.IO;
 namespace Fuel{
 
 class posto{
-  private double qtd_carros;
   private List<string> hist_car; 
   private List<double> hist_comb;
-  private double g;
 
   public posto(){
     hist_car = new List<string>();
@@ -17,16 +15,11 @@ class posto{
 
   public void abastecer(double q, carro u){ //carro sendo abastecido; "c" é a condição do carro ligado ou delsigado;
   
-  if(u.status == false){
-  u.qtd_comb = u.qtd_comb + q;
-    
-    /*StreamWriter hist = File.AppendText("histórico.txt");
-    for(int i=0; i<hist_comb.Count; i++){
-      hist.WriteLine("Carro: {0} Qtd. de Comb.: {1}", hist_car[i], hist_comb[i]);
-    }
-    hist.Close();
-    */
-    }
+  if(u.get_status() == false){
+  u.set_qtd_comb(q);
+  hist_car.Add(u.get_marca());
+  hist_comb.Add(q);
+  }
   
   else{
     Console.WriteLine("Desligue o carro, primeiro!");
@@ -34,12 +27,20 @@ class posto{
   }
 
   public void get_hist(){ //ler lista e mostar qtd de carros atendidos
+
+  StreamWriter hist = File.AppendText("histórico.txt");
+    for(int i=0; i<hist_comb.Count; i++){
+      hist.WriteLine("Carro: {0} Qtd. de Comb.: {1}", hist_car[i], hist_comb[i]);
+    }
+  hist.Close();
+  
   StreamReader hist2 = File.OpenText("histórico.txt");
     for(int i=0; i<=hist_car.Count; i++){
       if(hist2.ReadLine() != null){
         Console.WriteLine(hist2.ReadLine());
       }
     }
+    hist2.Close();
   }
 
   public static double preco_comb(){

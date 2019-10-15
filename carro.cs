@@ -5,9 +5,9 @@ using System.IO;
 namespace Fuel{
 
 class carro{
-  public double qtd_comb;
+  private double qtd_comb;
   private string marca;
-  public bool status;
+  private bool status;
 
   public carro(string m, double q){
   qtd_comb = q;
@@ -19,8 +19,20 @@ class carro{
   return qtd_comb;
   }
 
+  public void set_qtd_comb(double g){
+  qtd_comb = qtd_comb + g;
+  }
+
   public void set_status(bool s){ //liga ou desliga o carro
   status = s;
+  }
+
+  public bool get_status(){ //liga ou desliga o carro
+  return status;
+  }
+
+  public string get_marca(){
+    return marca;
   }
 
 }
